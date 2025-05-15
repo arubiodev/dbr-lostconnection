@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { Spinner, Avatar, Card } from "@heroui/react";
+import avatarImage from "./2.png";
 
 export const ConnectionLostScreen: React.FC = () => {
   return (
@@ -71,7 +72,7 @@ export const ConnectionLostScreen: React.FC = () => {
               shadow="none"
             >
               <Avatar 
-                src="./2.png"
+                src={avatarImage}
                 className="w-32 h-32 md:w-40 md:h-40"
                 radius="lg"
               />
