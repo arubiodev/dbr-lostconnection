@@ -13,13 +13,13 @@ export const ConnectionLostScreen: React.FC = () => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-between py-12">
-        {/* Top section with DBR branding */}
+      <div className="relative z-10 w-full h-full flex flex-col items-center">
+        {/* Top section with DBR branding and avatar */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center mt-8"
         >
           {/* DBR text */}
           <motion.h1 
@@ -40,52 +40,51 @@ export const ConnectionLostScreen: React.FC = () => {
           >
             DBR
           </motion.h1>
-        </motion.div>
-        
-        {/* Center section with avatar */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-col items-center"
-        >
-          {/* Avatar container with improved styling */}
+          
+          {/* Avatar container */}
           <motion.div
-            animate={{ 
-              scale: [1, 1.03, 1],
-              boxShadow: [
-                "0 0 0 3px rgba(239, 68, 68, 0.3)",
-                "0 0 0 4px rgba(239, 68, 68, 0.5)",
-                "0 0 0 3px rgba(239, 68, 68, 0.3)"
-              ]
-            }}
-            transition={{ 
-              duration: 3, 
-              repeat: Infinity,
-              repeatType: "loop",
-              ease: "easeInOut"
-            }}
+            className="mt-4"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            whileHover={{ scale: 1.05 }}
           >
-            <Card 
-              className="bg-black/50 backdrop-blur-sm border-2 border-red-500/40 p-2"
-              radius="lg"
-              shadow="none"
+            <motion.div
+              animate={{ 
+                boxShadow: [
+                  "0 0 0 3px rgba(239, 68, 68, 0.3)",
+                  "0 0 0 4px rgba(239, 68, 68, 0.5)",
+                  "0 0 0 3px rgba(239, 68, 68, 0.3)"
+                ]
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut"
+              }}
             >
-              <Avatar 
-                src={avatarImage}
-                className="w-32 h-32 md:w-40 md:h-40"
+              <Card 
+                className="bg-black/50 backdrop-blur-sm border-2 border-red-500/40 p-2"
                 radius="lg"
-              />
-            </Card>
+                shadow="none"
+              >
+                <Avatar 
+                  src={avatarImage}
+                  className="w-28 h-28 md:w-32 md:h-32"
+                  radius="lg"
+                />
+              </Card>
+            </motion.div>
           </motion.div>
         </motion.div>
-
-        {/* Bottom section with connection lost message */}
+        
+        {/* Middle section with connection lost message - moved higher */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="flex flex-col items-center gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="flex flex-col items-center mt-16"
         >
           {/* Alert icon and connection lost text combined */}
           <div className="flex flex-col items-center">
@@ -101,11 +100,11 @@ export const ConnectionLostScreen: React.FC = () => {
               }}
               className="text-red-500 mb-4"
             >
-              <Icon icon="lucide:wifi-off" width={60} height={60} />
+              <Icon icon="lucide:wifi-off" width={70} height={70} />
             </motion.div>
             
             <motion.h2
-              className="text-4xl font-bold tracking-tight text-white"
+              className="text-5xl font-bold tracking-tight text-white"
               animate={{ opacity: [1, 0.7, 1] }}
               transition={{ 
                 duration: 2.5, 
@@ -117,7 +116,15 @@ export const ConnectionLostScreen: React.FC = () => {
               CONNECTION LOST
             </motion.h2>
           </div>
-          
+        </motion.div>
+
+        {/* Bottom section with reconnect message - moved higher */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
+          className="mt-6"
+        >
           {/* Attempting to reconnect message */}
           <div className="flex items-center gap-3 text-gray-400">
             <Spinner size="sm" color="danger" />
