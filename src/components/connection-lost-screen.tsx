@@ -13,13 +13,13 @@ export const ConnectionLostScreen: React.FC = () => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center">
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
         {/* Top section with DBR branding and avatar */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="flex flex-col items-center mt-8"
+          className="flex flex-col items-center mb-8"
         >
           {/* DBR text */}
           <motion.h1 
@@ -43,7 +43,7 @@ export const ConnectionLostScreen: React.FC = () => {
           
           {/* Avatar container */}
           <motion.div
-            className="mt-4"
+            className="mt-6"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -79,12 +79,12 @@ export const ConnectionLostScreen: React.FC = () => {
           </motion.div>
         </motion.div>
         
-        {/* Middle section with connection lost message - moved higher */}
+        {/* Middle section with connection lost message */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="flex flex-col items-center mt-16"
+          className="flex flex-col items-center mb-8"
         >
           {/* Alert icon and connection lost text combined */}
           <div className="flex flex-col items-center">
@@ -118,12 +118,11 @@ export const ConnectionLostScreen: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Bottom section with reconnect message - moved higher */}
+        {/* Bottom section with reconnect message */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.8 }}
-          className="mt-6"
         >
           {/* Attempting to reconnect message */}
           <div className="flex items-center gap-3 text-gray-400">
