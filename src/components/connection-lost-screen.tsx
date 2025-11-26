@@ -5,7 +5,7 @@ import { Spinner, Avatar, Card } from "@heroui/react";
 import avatarImage from "./2.png";
 
 export const ConnectionLostScreen: React.FC = () => {
-  const [timeRemaining, setTimeRemaining] = useState(40 * 60); // 40 minutes in seconds
+  const [timeRemaining, setTimeRemaining] = useState(30 * 60); // 30 minutes in seconds
 
   useEffect(() => {
     const timer = setInterval(() => {
