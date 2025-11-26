@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { Spinner, Avatar, Card } from "@heroui/react";
 import avatarImage from "./2.png";
 
 export const ConnectionLostScreen: React.FC = () => {
+  const [timeRemaining, setTimeRemaining] = useState(40 * 60); // 40 minutes in seconds
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 0) return 0;
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className="relative w-full h-full bg-black overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-20">
         <AnimatedBackground />
       </div>
+      
+      {/* Subtle flight animation */}
+      <SubtleFlightAnimation />
       
       {/* Content */}
       <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
@@ -115,6 +137,68 @@ export const ConnectionLostScreen: React.FC = () => {
             >
               CONNECTION LOST
             </motion.h2>
+          </div>
+        </motion.div>
+
+        {/* Flight Status Section - Integrated into existing design */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="flex flex-col items-center mb-8"
+        >
+          <div className="text-center">
+            {/* Flight route info in red theme */}
+            <div className="flex items-center justify-center gap-4 mb-4 text-gray-300">
+              <div className="text-center">
+                <div className="text-xs text-gray-500 uppercase tracking-wider">From</div>
+                <div className="font-bold text-white">Brisbane</div>
+              </div>
+              
+              <motion.div
+                animate={{ 
+                  y: [0, -3, 0],
+                  x: [0, 2, 0],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="text-red-500"
+              >
+                <Icon icon="lucide:plane" width={20} height={20} />
+              </motion.div>
+              
+              <div className="text-center">
+                <div className="text-xs text-gray-500 uppercase tracking-wider">To</div>
+                <div className="font-bold text-white">Sydney</div>
+              </div>
+            </div>
+            
+            {/* Arrival countdown matching existing style */}
+            <div className="text-center">
+              <div className="text-sm text-gray-400 mb-2 uppercase tracking-wider">DBR arrives in</div>
+              <motion.div 
+                className="text-4xl font-bold text-red-500"
+                animate={{ 
+                  textShadow: [
+                    "0 0 8px rgba(239, 68, 68, 0.7)",
+                    "0 0 12px rgba(239, 68, 68, 0.9)",
+                    "0 0 8px rgba(239, 68, 68, 0.7)"
+                  ]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut"
+                }}
+              >
+                {formatTime(timeRemaining)}
+              </motion.div>
+            </div>
           </div>
         </motion.div>
 
@@ -225,6 +309,62 @@ const AnimatedBackground: React.FC = () => {
       {/* Digital glitch effect */}
       <GlitchEffect />
     </>
+  );
+};
+
+// Subtle Flight Animation Component - matches existing design
+const SubtleFlightAnimation: React.FC = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-5 opacity-30">
+      {/* Subtle animated plane icons scattered in background */}
+      {Array.from({ length: 3 }).map((_, index) => (
+        <motion.div
+          key={`plane-${index}`}
+          className="absolute text-red-500/20"
+          style={{
+            left: `${20 + index * 300}px`,
+            top: `${150 + index * 100}px`
+          }}
+          animate={{
+            y: [0, -8, 0],
+            x: [0, 6, 0],
+            opacity: [0.1, 0.25, 0.1],
+            rotate: [0, 2, 0]
+          }}
+          transition={{
+            duration: 6 + index * 1.5,
+            repeat: Infinity,
+            delay: index * 2,
+            ease: "easeInOut"
+          }}
+        >
+          <Icon icon="lucide:plane" width={24} height={24} />
+        </motion.div>
+      ))}
+      
+      {/* Subtle dotted lines suggesting flight paths */}
+      {Array.from({ length: 2 }).map((_, index) => (
+        <motion.div
+          key={`path-${index}`}
+          className="absolute h-px bg-red-500/10"
+          style={{
+            top: `${200 + index * 150}px`,
+            left: '10%',
+            right: '10%'
+          }}
+          animate={{
+            scaleX: [0.8, 1.1, 0.8],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{
+            duration: 6,
+            delay: index * 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </div>
   );
 };
 
